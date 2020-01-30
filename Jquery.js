@@ -1,7 +1,7 @@
 $(document).ready(function () {
     //set sentences as variables
     var sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
-    //set word container to the first place in the sentences array on load
+    //sets the word container to the first place when the page loads
     var sentenceIndex = 0;
 
     var letterIndex = 0;
@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     var currentSentence = sentences[0];
     var currentLetter = currentSentence[0];
-    var start; // for timer
+    var start; // variable for the timer
     var finish;// for timer
     var errors = 0; // to track mistakes
 
