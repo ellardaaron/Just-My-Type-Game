@@ -1,7 +1,7 @@
 $(document).ready(function () {
-    //set sentences as variables
+    
     var sentences = ['ten ate neite ate nee enet ite ate inet ent eate', 'Too ato too nOt enot one totA not anot tOO aNot', 'oat itain oat tain nate eate tea anne inant nean', 'itant eate anot eat nato inate eat anot tain eat', 'nee ene ate ite tent tiet ent ine ene ete ene ate'];
-    //sets the word container to the first place when the page loads
+    
     var sentenceIndex = 0;
 
     var letterIndex = 0;
@@ -11,16 +11,16 @@ $(document).ready(function () {
 
     var currentSentence = sentences[0];
     var currentLetter = currentSentence[0];
-    var start; // variable for the timer
-    var finish;// for timer
-    var errors = 0; // to track mistakes
+    var start; 
+    var finish;
+    var errors = 0; 
 
-    $("#sentence").append(currentSentence); // setting the content of the sentence div to = currentSentence
-    $("#target-letter").append(currentLetter); // setting the content of the target-letter div to = currentLetter
-    //make the uppercase keyboard hidden on page load
-    $("#keyboard-upper-container").hide(); // hides the uppercase keyboard
+    $("#sentence").append(currentSentence); 
+    $("#target-letter").append(currentLetter); 
+    
+    $("#keyboard-upper-container").hide(); 
 
-    $(document).keydown(function (event) { //show uppercase keyboard and hide lowercase keyboard on shift key press
+    $(document).keydown(function (event) { 
         var keyDown = event.which;
         if (keyDown === 16) {
             $("#keyboard-upper-container").show();
@@ -28,7 +28,7 @@ $(document).ready(function () {
         }
     })
 
-    //hide uppercase keyboard on shift release and show lowercase
+    
     $(document).keyup(function (event) {
         var keyUp = event.which;
         if (keyUp === 16) {
@@ -38,53 +38,53 @@ $(document).ready(function () {
         $('.highlight').removeClass('highlight');
     });
 
-    //highlight keys on press
+    
     $(document).keypress(function (event) {
         var keyPress = event.which;
         $('#' + keyPress).addClass('highlight');
         var currentSentence = sentences[sentenceIndex];
         var currentLetter = currentSentence[letterIndex];
 
-        if (start == undefined) { // if there is no value in start, set it to = the event.timeStamp
+        if (start == undefined) { 
             start = event.timeStamp;
         }
 
-        $("#yellow-block").css("left", "+=17.5px"); //moves the yellow-block to the left by offsetting it to the right
+        $("#yellow-block").css("left", "+=17.5px"); 
 
-        letterIndex++; //advances the letterIndex by 1
-        var nextLetter = currentSentence[letterIndex]; // sets nextLetter = the current letterIndex
-        currentLetterDiv.text(nextLetter); //sets the content of currentLetterDiv = nextLetter
+        letterIndex++; 
+        var nextLetter = currentSentence[letterIndex]; 
+        currentLetterDiv.text(nextLetter); 
 
-        if (letterIndex < currentSentence.length -1) { // if letterIndex hasn't gone through the entire word yet
-            if (event.which === currentLetter.charCodeAt()) { // if key pressed is correct
-                $("#feedback").append("<span class = 'glyphicon glyphicon-ok'></span>"); //set ok icon
+        if (letterIndex < currentSentence.length -1) { 
+            if (event.which === currentLetter.charCodeAt()) { 
+                $("#feedback").append("<span class = 'glyphicon glyphicon-ok'></span>"); 
             } else {
-                $("#feedback").append("<span class = 'glyphicon glyphicon-remove'></span>"); //if incorrect set icon to X
+                $("#feedback").append("<span class = 'glyphicon glyphicon-remove'></span>"); 
                 errors++; // and advance the errors counter by 1
             }
         }
 
-        if (letterIndex == currentSentence.length) { // if letterIndex = the end of the currentSentence
-            $("#sentence").empty(); //get the sentence div and empty it
-            sentenceIndex++; //advance sentenceIndex by 1
-            currentSentence = sentences[sentenceIndex]; //set currentSentence = the sentence in teh sentences array 
-            //at position sentenceIndex
-            $("#sentence").append(sentences[sentenceIndex]); // set content of #sentence to the current sentence 
-            letterIndex = 0; //reset the letter index to 0 to start at the beginning of the new sentence
+        if (letterIndex == currentSentence.length) { 
+            $("#sentence").empty(); 
+            sentenceIndex++; 
+            currentSentence = sentences[sentenceIndex]; 
+            
+            $("#sentence").append(sentences[sentenceIndex]); 
+            letterIndex = 0; 
             if (sentenceIndex < sentences.length - 1) { 
                 var nextLetter = currentSentence[letterIndex];
             }
-            currentLetterDiv.text(nextLetter); // set the content of the currentLetterDiv = nextLetter
-            $("#yellow-block").css({ left: 17 }); //resets the position of the yellow-block
-            $("#feedback").empty(); //clears the feedback div
+            currentLetterDiv.text(nextLetter); 
+            $("#yellow-block").css({ left: 17 }); 
+            $("#feedback").empty(); 
         }
 
-        if (sentenceIndex > sentences.length - 1) { //if you're all the way through the sentences array
-            finish = event.timeStamp; //set finish timer to that timer
-            var time = (finish - start); //set time = difference between finish and start timeStamp
-            time /= 60000; //divide timestamp of finish by 60000
-            var speed = Math.round((54 / time) - (errors * 2)); // divides time by # of words in test and subtracts errors * 2
-            $("#target-letter").text("Your score is " + speed + " words per minute"); //setting content of target-letter div to results of test
+        if (sentenceIndex > sentences.length - 1) { 
+            finish = event.timeStamp; 
+            var time = (finish - start); 
+            time /= 60000; 
+            var speed = Math.round((54 / time) - (errors * 2)); 
+            $("#target-letter").text("Your score is " + speed + " words per minute"); 
 
             setTimeout(function () {
                 var tryAgain = confirm("Do you wnat to try again?");
